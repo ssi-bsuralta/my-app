@@ -5,7 +5,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { AuthService } from '../services/auth.service';
 
 @Component({
-    selector: 'app-root',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
@@ -21,11 +20,13 @@ export class LoginComponent implements OnInit {
         Validators.minLength(4)
     ]);
 
-    constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder) { }
+    constructor(
+        private auth: AuthService,
+        private router: Router,
+        private formBuilder: FormBuilder) { }
 
     ngOnInit() {
         if (this.auth.loggedIn) {
-            this.router.navigate(['/']);
         }
 
         this.loginForm = this.formBuilder.group({
@@ -36,10 +37,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.auth.login(this.loginForm.value).subscribe(
-            res => {
-                console.log('test');
-                this.router.navigate(['/']);
-            }
+            res => this.router.navigate(['/'])
         );
     }
 }
