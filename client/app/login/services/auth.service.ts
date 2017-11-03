@@ -8,25 +8,32 @@ export class AuthService {
     loggedIn;
 
     constructor(private userService: UserService, private router: Router) {
-        let user = localStorage.getItem('currentUser');
+        const user = this.getUser();
 
         if (user) {
             this.loggedIn = true;
-            user = JSON.parse(user);
         }
     }
 
     login(emailAndPassword) {
         return this.userService.login(emailAndPassword).subscribe(
             res => {
-                localStorage.setItem('currentUser', JSON.stringify(res.json()));
+                this.setUser(res.json());
                 location.reload();
             }
         );
     }
 
     logout() {
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('user');
         location.reload();
+    }
+
+    setUser(user) {
+        localStorage.setItem('user', JSON.stringify(user));
+    }
+
+    getUser() {
+        return JSON.parse(localStorage.getItem('user'));
     }
 }

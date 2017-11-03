@@ -1,7 +1,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { SharedModule } from '../../shared/shared.module';
-import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';

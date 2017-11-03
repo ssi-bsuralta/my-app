@@ -1,4 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -6,7 +7,10 @@ import { HeaderComponent } from '../../layout/header/header.component';
 import { MenuComponent } from '../../layout/menu/menu.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
 
-import { DashboardData } from '../services/dashboard-data.service';
+import { AuthService } from '../../login/services/auth.service';
+import { UserService } from '../../login/services/user.service';
+
+import { DashboardData } from './dashboard-data.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 class MockDashboardData {
@@ -33,6 +37,9 @@ describe('DashboardComponent', () => {
                     FooterComponent
                 ],
                 providers: [
+                    AuthService,
+                    UserService,
+                    {provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); }},
                     { provide: DashboardData, useClass: {} }
                 ]
             })

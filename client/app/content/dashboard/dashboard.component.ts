@@ -1,8 +1,8 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material';
 
-import { DashboardTable } from '../shared/table';
-import { DashboardData } from '../services/dashboard-data.service';
+import { DashboardTable } from '../../shared/table';
+import { DashboardData } from './dashboard-data.service';
 
 @Component({
     templateUrl: './dashboard.component.html',
