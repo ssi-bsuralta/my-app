@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { MatInputModule, MatButtonModule, MatTableModule, MatSortModule } from '@angular/material';
+import {
+    MatInputModule, MatButtonModule,
+    MatTableModule, MatSortModule,
+    MatToolbarModule
+} from '@angular/material';
 
 @NgModule({
     imports: [],
@@ -12,7 +16,9 @@ import { MatInputModule, MatButtonModule, MatTableModule, MatSortModule } from '
         CommonModule,
         FormsModule, ReactiveFormsModule,
         HttpModule,
-        MatInputModule, MatButtonModule, MatTableModule, MatSortModule
+        MatInputModule, MatButtonModule,
+        MatTableModule, MatSortModule,
+        MatToolbarModule
     ]
 })
 export class SharedModule { }

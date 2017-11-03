@@ -5,6 +5,7 @@ import { DashboardTable } from '../../shared/table';
 import { DashboardData } from './dashboard-data.service';
 
 @Component({
+    selector: 'app-content',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
     providers: [DashboardData]

@@ -1,4 +1,7 @@
-<div>
-    <p>Welcome {{ user.name }}</p>
-    <p><a href="/logout">Logout</a></p>
-</div>
+<mat-toolbar>
+    <span>Welcome {{ user.name }}</span>
+    <span class="fill"></span>
+    <span>
+        <a routerLink="/logout">Logout</a>
+    </span>
+</mat-toolbar>

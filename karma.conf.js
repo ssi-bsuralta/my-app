@@ -4,6 +4,9 @@
 module.exports = function (config) {
     config.set({
         basePath: '',
+        files: [
+            { pattern: './node_modules/@angular/material/prebuilt-themes/indigo-pink.css' }
+        ],
         frameworks: ['jasmine', '@angular/cli'],
         plugins: [
             require('karma-jasmine'),

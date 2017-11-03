@@ -7,7 +7,7 @@ export class DashboardData {
     private headers = new Headers({ 'Content-Type': 'application/graphql', 'charset': 'UTF-8' });
     private options = new RequestOptions({ headers: this.headers });
     dataChange = new BehaviorSubject([]);
-    graphQL = `{
+    query = `{
         orders{
             id
             order_number
@@ -20,7 +20,7 @@ export class DashboardData {
 
     constructor(private http: Http) {
         this.http
-            .post('/api/graphQL', this.graphQL, this.options)
+            .post('/api/graphQL', this.query, this.options)
             .map(res => res.json().data.orders)
             .forEach(item => this.dataChange.next(item));
     }

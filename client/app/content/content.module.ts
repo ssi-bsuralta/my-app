@@ -4,9 +4,9 @@ import { ContentRoutingModule } from './content-routing.module';
 
 import { HeaderComponent } from '../layout/header/header.component';
 import { MenuComponent } from '../layout/menu/menu.component';
-import { FooterComponent } from '../layout/footer/footer.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
     imports: [
@@ -14,8 +14,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         ContentRoutingModule
     ],
     declarations: [
-        HeaderComponent, MenuComponent, FooterComponent,
-        DashboardComponent
+        HeaderComponent, MenuComponent,
+        DashboardComponent,
+        CreateComponent
     ]
 })
 export class ContentModule { }

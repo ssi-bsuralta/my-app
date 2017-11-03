@@ -5,23 +5,12 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { HeaderComponent } from '../../layout/header/header.component';
 import { MenuComponent } from '../../layout/menu/menu.component';
-import { FooterComponent } from '../../layout/footer/footer.component';
 
 import { AuthService } from '../../login/services/auth.service';
 import { UserService } from '../../login/services/user.service';
 
 import { DashboardData } from './dashboard-data.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-class MockDashboardData {
-    dataChange = new BehaviorSubject<any[]>([]);
-
-    constructor() {
-        this.dataChange.next([{
-            id: 1
-        }]);
-    }
-}
 
 describe('DashboardComponent', () => {
     beforeEach(async(() => {
@@ -33,13 +22,12 @@ describe('DashboardComponent', () => {
                 declarations: [
                     DashboardComponent,
                     HeaderComponent,
-                    MenuComponent,
-                    FooterComponent
+                    MenuComponent
                 ],
                 providers: [
                     AuthService,
                     UserService,
-                    {provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); }},
+                    { provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); } },
                     { provide: DashboardData, useClass: {} }
                 ]
             })
@@ -58,3 +46,13 @@ describe('DashboardComponent', () => {
         expect(app).toBeTruthy();
     }));
 });
+
+class MockDashboardData {
+    dataChange = new BehaviorSubject<any[]>([]);
+
+    constructor() {
+        this.dataChange.next([{
+            id: 1
+        }]);
+    }
+}
