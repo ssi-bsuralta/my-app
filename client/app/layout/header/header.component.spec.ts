@@ -1,10 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { HeaderComponent } from './header.component';
 import { SharedModule } from '../../shared/shared.module';
 
 import { AuthService } from '../../login/services/auth.service';
-import { UserService } from '../../login/services/user.service';
+
+const mockAuth = {
+    getUser() {
+        return { name: 'test' };
+    }
+};
 
 describe('HeaderComponent', () => {
     beforeEach(async(() => {
@@ -16,9 +20,7 @@ describe('HeaderComponent', () => {
                 HeaderComponent
             ],
             providers: [
-                AuthService,
-                UserService,
-                {provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); }},
+                { provide: AuthService, useValue: mockAuth }
             ]
         }).compileComponents();
     }));

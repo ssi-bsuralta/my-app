@@ -10,7 +10,7 @@ export class AuthService {
     constructor(private userService: UserService, private router: Router) {
         const user = this.getUser();
 
-        if (user) {
+        if (user && user.name) {
             this.loggedIn = true;
         }
     }

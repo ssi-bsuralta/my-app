@@ -1,10 +1,15 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { SharedModule } from '../../shared/shared.module';
 
 import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
+
+const mockAuth = {
+    getUser() {
+        return { name: 'test' };
+    }
+};
 
 describe('LoginComponent', () => {
     beforeEach(async(() => {
@@ -16,9 +21,8 @@ describe('LoginComponent', () => {
                 LoginComponent
             ],
             providers: [
-                AuthService,
-                UserService,
-                {provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); }},
+                { provide: AuthService, useValue: mockAuth },
+                { provide: Router, useClass: class { navigateByUrl = jasmine.createSpy('navigateByUrl'); } }
             ]
         }).compileComponents();
     }));

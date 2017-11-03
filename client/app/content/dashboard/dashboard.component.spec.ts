@@ -1,16 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { HeaderComponent } from '../../layout/header/header.component';
 import { MenuComponent } from '../../layout/menu/menu.component';
 
-import { AuthService } from '../../login/services/auth.service';
-import { UserService } from '../../login/services/user.service';
-
 import { DashboardData } from './dashboard-data.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AuthService } from '../../login/services/auth.service';
+
+const mockAuth = {
+    getUser() {
+        return { name: 'test' };
+    }
+};
 
 describe('DashboardComponent', () => {
     beforeEach(async(() => {
@@ -25,10 +28,8 @@ describe('DashboardComponent', () => {
                     MenuComponent
                 ],
                 providers: [
-                    AuthService,
-                    UserService,
-                    { provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); } },
-                    { provide: DashboardData, useClass: {} }
+                    { provide: AuthService, useValue: mockAuth },
+                    DashboardData
                 ]
             })
             .overrideComponent(DashboardComponent, {
