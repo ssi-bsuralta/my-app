@@ -12,9 +12,8 @@ export class AuthGuardLogin implements CanActivate {
         if (this.auth.loggedIn) {
             return true;
         } else {
-            this.router.navigate(['/login']);
+            this.router.navigateByUrl('/login', { skipLocationChange: true });
+            return false;
         }
-
-        return false;
     }
 }

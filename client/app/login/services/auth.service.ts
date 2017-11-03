@@ -5,13 +5,14 @@ import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
-    loggedIn = false;
-    isAdmin = false;
+    loggedIn;
 
     constructor(private userService: UserService, private router: Router) {
-        const user = localStorage.getItem('currentUser');
+        let user = localStorage.getItem('currentUser');
+
         if (user) {
             this.loggedIn = true;
+            user = JSON.parse(user);
         }
     }
 
@@ -20,13 +21,6 @@ export class AuthService {
     }
 
     setCurrentUser(user) {
-        this.loggedIn = true;
         localStorage.setItem('currentUser', JSON.stringify(user));
-    }
-
-    logout() {
-        localStorage.removeItem('token');
-        this.loggedIn = false;
-        this.isAdmin = false;
     }
 }

@@ -23,12 +23,14 @@ export class LoginComponent implements OnInit {
     constructor(
         private auth: AuthService,
         private router: Router,
-        private formBuilder: FormBuilder) { }
+        private formBuilder: FormBuilder
+    ) {
+        if (this.auth.loggedIn) {
+            this.router.navigateByUrl('/');
+        }
+    }
 
     ngOnInit() {
-        if (this.auth.loggedIn) {
-        }
-
         this.loginForm = this.formBuilder.group({
             username: this.username,
             password: this.password
@@ -37,7 +39,10 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.auth.login(this.loginForm.value).subscribe(
-            res => this.router.navigate(['/'])
+            res => {
+                this.auth.setCurrentUser(res.json());
+                location.reload();
+            }
         );
     }
 }
