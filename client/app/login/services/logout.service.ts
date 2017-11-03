@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
+
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class LogoutService implements CanActivate {
-
-    constructor(private router: Router) { }
+    constructor(public auth: AuthService) { }
 
     canActivate() {
-        localStorage.removeItem('currentUser');
-        location.reload();
+        this.auth.logout();
         return false;
     }
 }

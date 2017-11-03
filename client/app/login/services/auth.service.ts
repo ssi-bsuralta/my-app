@@ -17,10 +17,16 @@ export class AuthService {
     }
 
     login(emailAndPassword) {
-        return this.userService.login(emailAndPassword);
+        return this.userService.login(emailAndPassword).subscribe(
+            res => {
+                localStorage.setItem('currentUser', JSON.stringify(res.json()));
+                location.reload();
+            }
+        );
     }
 
-    setCurrentUser(user) {
-        localStorage.setItem('currentUser', JSON.stringify(user));
+    logout() {
+        localStorage.removeItem('currentUser');
+        location.reload();
     }
 }

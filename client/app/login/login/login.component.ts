@@ -38,11 +38,6 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        this.auth.login(this.loginForm.value).subscribe(
-            res => {
-                this.auth.setCurrentUser(res.json());
-                location.reload();
-            }
-        );
+        this.auth.login(this.loginForm.value);
     }
 }
