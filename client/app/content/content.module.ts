@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { HeaderComponent } from '../layout/header/header.component';
 import { MenuComponent } from '../layout/menu/menu.component';
 import { FooterComponent } from '../layout/footer/footer.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TableComponent } from './dashboard/table.component';
 
 import { ContentRoutingModule } from './content-routing.module';
 
@@ -18,7 +17,7 @@ import { ContentRoutingModule } from './content-routing.module';
     ],
     declarations: [
         HeaderComponent, MenuComponent, FooterComponent,
-        DashboardComponent, TableComponent
+        DashboardComponent
     ],
     providers: []
 })

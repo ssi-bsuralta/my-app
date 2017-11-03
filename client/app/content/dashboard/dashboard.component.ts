@@ -1,13 +1,22 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material';
 
-import { TableComponent } from './table.component';
+import { DashboardTable } from '../services/dashboard-table.service';
+import { DashboardData } from '../services/dashboard-data.service';
 
 @Component({
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    styleUrls: ['./dashboard.component.scss'],
+    providers: [DashboardData]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
     displayedColumns = ['id', 'order_number', 'study_name', 'user_id'];
-    @ViewChild(TableComponent) myTable: TableComponent;
+    @ViewChild(MatSort) sort: MatSort;
+    dataSource;
+
+    constructor(private data: DashboardData) { }
+
+    ngOnInit() {
+        this.dataSource = new DashboardTable(this.data, this.sort);
+    }
 }
