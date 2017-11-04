@@ -6,7 +6,7 @@ import UserCtrl from './controllers/user';
 
 export default function setPassport(app) {
     const userCtrl = new UserCtrl();
-    passport.use(new Strategy(userCtrl.login));
+    passport.use(new Strategy(userCtrl.login_local));
     passport.serializeUser((user, done) => done(null, user));
     passport.deserializeUser((user, done) => done(null, user));
 
@@ -24,7 +24,7 @@ export default function setPassport(app) {
         passport.authenticate('local'),
         (req, res) => {
             res.json({
-                _id: req.user._id,
+                id: req.user.id,
                 name: req.user.name
             });
         }

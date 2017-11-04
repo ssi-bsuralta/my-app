@@ -6,12 +6,7 @@ import { HeaderComponent } from '../../layout/header/header.component';
 import { MenuComponent } from '../../layout/menu/menu.component';
 
 import { AuthService } from '../../login/services/auth.service';
-
-const mockAuth = {
-    getUser() {
-        return { name: 'test' };
-    }
-};
+import { mockAuth } from '../../login/services/auth.mock';
 
 describe('CreateComponent', () => {
     beforeEach(async(() => {

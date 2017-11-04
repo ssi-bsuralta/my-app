@@ -4,12 +4,7 @@ import { LoginComponent } from './login.component';
 import { SharedModule } from '../../shared/shared.module';
 
 import { AuthService } from '../services/auth.service';
-
-const mockAuth = {
-    getUser() {
-        return { name: 'test' };
-    }
-};
+import { mockAuth } from '../../login/services/auth.mock';
 
 describe('LoginComponent', () => {
     beforeEach(async(() => {

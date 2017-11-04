@@ -3,12 +3,7 @@ import { HeaderComponent } from './header.component';
 import { SharedModule } from '../../shared/shared.module';
 
 import { AuthService } from '../../login/services/auth.service';
-
-const mockAuth = {
-    getUser() {
-        return { name: 'test' };
-    }
-};
+import { mockAuth } from '../../login/services/auth.mock';
 
 describe('HeaderComponent', () => {
     beforeEach(async(() => {
