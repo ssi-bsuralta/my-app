@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 
 import {
     MatInputModule, MatButtonModule,
@@ -9,9 +9,9 @@ import {
     MatToolbarModule
 } from '@angular/material';
 
+import { ExtendedHttpService } from './extended-http.service';
+
 @NgModule({
-    imports: [],
-    declarations: [],
     exports: [
         CommonModule,
         FormsModule, ReactiveFormsModule,
@@ -19,6 +19,9 @@ import {
         MatInputModule, MatButtonModule,
         MatTableModule, MatSortModule, MatPaginatorModule,
         MatToolbarModule
+    ],
+    providers: [
+        { provide: Http, useClass: ExtendedHttpService }
     ]
 })
 export class SharedModule { }
