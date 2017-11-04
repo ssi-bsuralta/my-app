@@ -5,6 +5,7 @@ import {
 } from 'graphql';
 
 import OrderRootClass from './graphQL/order';
+import myGuard from './guard';
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -19,6 +20,8 @@ const schema = new GraphQLSchema({
 });
 
 export default function setGraphQL(app) {
+    app.express.use(myGuard);
+
     app.express.use('/graphql', graphqlHTTP({
         schema: schema,
         graphiql: true,
