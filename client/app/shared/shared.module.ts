@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import {
     MatInputModule, MatButtonModule,
-    MatTableModule, MatSortModule,
+    MatTableModule, MatSortModule, MatPaginatorModule,
     MatToolbarModule
 } from '@angular/material';
 
@@ -17,7 +17,7 @@ import {
         FormsModule, ReactiveFormsModule,
         HttpModule,
         MatInputModule, MatButtonModule,
-        MatTableModule, MatSortModule,
+        MatTableModule, MatSortModule, MatPaginatorModule,
         MatToolbarModule
     ]
 })

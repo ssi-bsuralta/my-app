@@ -1,6 +1,6 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-html, body {
+html,
+body {
     margin: 0;
 }
 
@@ -13,12 +13,16 @@ body {
     min-height: 100%;
     display: grid;
     grid-template-rows: 1fr auto;
+    font-family: "Open Sans", sans-serif, Calibri, Arial;
+    font-size: 14px;
 }
 
 app-footer {
     /* autoprefixer: off */
     grid-row-start: 2;
     grid-row-end: 3;
-    padding: 3px;
+    padding: 5px;
     background-color: #7fc4cb;
+    color: #ffffff;
+    text-align: center;
 }

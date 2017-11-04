@@ -1,27 +1,51 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/merge';
 
 export class DashboardTable extends DataSource<any> {
-    constructor(private _data, private _sort) {
+    _filter = new BehaviorSubject('');
+    get filter(): string { return this._filter.value; }
+    set filter(filter: string) { this._filter.next(filter); }
+    filteredLength = 0;
+
+    constructor(private _data, private _sort, private _paginator) {
         super();
     }
 
     connect(): Observable<any[]> {
         const displayDataChanges = [
             this._data.dataChange,
-            this._sort.sortChange
+            this._sort.sortChange,
+            this._paginator.page,
+            this._filter
         ];
 
         return Observable.merge(...displayDataChanges)
-            .map(() => this.getSortedData());
+            .map(() => {
+                let data = this._data.data.slice().filter(item => {
+                    let searchStr = '';
+                    for (const key in item) {
+                        if (item[key]) {
+                            searchStr += '' + item[key];
+                        }
+                    }
+
+                    return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+                });
+                this.filteredLength = data.length;
+
+                data = this.sortData(data);
+
+                const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+                return data.splice(startIndex, this._paginator.pageSize);
+            });
     }
 
     disconnect() { }
 
-    getSortedData() {
-        const data = this._data.data.slice();
+    sortData(data) {
         if (!this._sort.active || this._sort.direction === '') { return data; }
 
         return data.sort((a, b) => {

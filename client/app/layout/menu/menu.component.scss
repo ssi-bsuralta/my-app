@@ -1,3 +1,10 @@
 .fill {
     flex: 1 1 auto;
 }
+
+.logo a {
+    background: url(/assets/images/logo.png) no-repeat;
+    display: block;
+    line-height: 61px;
+    padding-left: 61px;
+}
