@@ -11,7 +11,6 @@ import { AuthService } from './login/services/auth.service';
 import { UserService } from './login/services/user.service';
 import { LogoutService } from './login/services/logout.service';
 
-
 const routes: Routes = [
     {
         path: 'login',
