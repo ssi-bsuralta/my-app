@@ -5,24 +5,24 @@ body {
 }
 
 html {
+    min-height: 300px;
     height: 100%;
 }
 
 body {
-    /* autoprefixer: off */
     min-height: 100%;
-    display: grid;
-    grid-template-rows: 1fr auto;
     font-family: "Open Sans", sans-serif, Calibri, Arial;
     font-size: 14px;
+    display: grid;
+    grid-template-rows: 1fr auto;
 }
 
 app-footer {
-    /* autoprefixer: off */
-    grid-row-start: 2;
-    grid-row-end: 3;
     padding: 5px;
     background-color: #7fc4cb;
     color: #ffffff;
     text-align: center;
+    /* autoprefixer: off */
+    grid-row-start: 2;
+    grid-row-end: 3;
 }

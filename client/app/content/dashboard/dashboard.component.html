@@ -1,22 +1,20 @@
-<app-header></app-header>
-<app-menu></app-menu>
-<content>
-    <div class="example-container mat-elevation-z8">
-        <mat-form-field floatPlaceholder="never">
-            <input matInput #filter placeholder="Find">
-        </mat-form-field>
+<div id="filter">
+    <mat-form-field floatPlaceholder="never">
+        <input matInput #filter placeholder="Find">
+    </mat-form-field>
+</div>
 
-        <mat-table #table [dataSource]="dataSource" matSort>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+<div id="table">
+    <mat-table #table [dataSource]="dataSource" matSort>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-            <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row[column] }}</mat-cell>
-            </ng-container>
-        </mat-table>
+        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row[column] }}</mat-cell>
+        </ng-container>
+    </mat-table>
 
-        <mat-paginator #paginator [length]="dataSource.filteredLength" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-        </mat-paginator>
-    </div>
-</content>
+    <mat-paginator #paginator [length]="dataSource.filteredLength" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+</div>

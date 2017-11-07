@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-content',
