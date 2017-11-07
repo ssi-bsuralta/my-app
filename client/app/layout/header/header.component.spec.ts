@@ -8,12 +8,8 @@ import { mockAuth } from '../../login/services/auth.mock';
 describe('HeaderComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                SharedModule
-            ],
-            declarations: [
-                HeaderComponent
-            ],
+            imports: [SharedModule],
+            declarations: [HeaderComponent],
             providers: [
                 { provide: AuthService, useValue: mockAuth }
             ]

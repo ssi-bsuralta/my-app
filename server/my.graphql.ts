@@ -1,17 +1,14 @@
 import * as graphqlHTTP from 'express-graphql';
-import {
-    GraphQLSchema,
-    GraphQLObjectType
-} from 'graphql';
+import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 
-import OrderRootClass from './schema/order';
-import myGuard from './guard';
+import { OrderRoot } from './schema/order';
+import { myguard } from './guard';
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-        order: OrderRootClass.order,
-        orders: OrderRootClass.orders
+        order: OrderRoot.order,
+        orders: OrderRoot.orders
     }
 });
 
@@ -19,10 +16,10 @@ const schema = new GraphQLSchema({
     query: RootQuery
 });
 
-export default function setGraphQL(app) {
+export function setGraphQL(app) {
     app.express.use(
         '/graphql',
-        myGuard,
+        myguard,
         graphqlHTTP({
             schema: schema,
             graphiql: true,
@@ -31,7 +28,7 @@ export default function setGraphQL(app) {
 
     app.express.use(
         '/api/graphql',
-        myGuard,
+        myguard,
         graphqlHTTP({
             schema: schema
         })

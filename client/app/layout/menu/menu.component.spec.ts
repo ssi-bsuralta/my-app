@@ -5,12 +5,8 @@ import { SharedModule } from '../../shared/shared.module';
 describe('MenuComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                SharedModule
-            ],
-            declarations: [
-                MenuComponent
-            ],
+            imports: [SharedModule],
+            declarations: [MenuComponent],
         }).compileComponents();
     }));
     it('should create the app', async(() => {

@@ -1,25 +1,22 @@
-import User from '../models/user';
 import * as ActiveDirectory from 'ActiveDirectory';
 
-export default class UserCtrl {
+import { User } from '../models/user';
+
+export class UserCtrl {
     model = User;
 
     login_local = (username, password, done) => {
         this.model.findOne({ username: username }, (err, user) => {
             if (err) { return done(err); }
-            if (!user) {
-                console.log('trying ad credentials');
-                return this.login_active_directory(username, password, done);
-            }
-            if (!user.validPassword(password)) {
-                console.log('trying ad credentials');
-                return this.login_active_directory(username, password, done);
-            }
+            if (!user) { return this.login_active_directory(username, password, done); }
+            if (!user.validPassword(password)) { return this.login_active_directory(username, password, done); }
             return done(null, user);
         });
     }
 
     login_active_directory = (username, password, done) => {
+        console.log('trying ad credentials');
+
         const ad = new ActiveDirectory({
             url: 'ldap://utdc01.surveysampling.com',
             baseDN: 'DC=SurveySampling,DC=com'

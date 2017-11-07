@@ -1,31 +1,17 @@
 import { TestBed, async } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-import { HeaderComponent } from '../../layout/header/header.component';
-import { MenuComponent } from '../../layout/menu/menu.component';
 
 import { DashboardData } from './dashboard-data.service';
-import { AuthService } from '../../login/services/auth.service';
-import { mockAuth } from '../../login/services/auth.mock';
+import { MockDashboardData } from './dashboard-data.mock';
 
 describe('DashboardComponent', () => {
     beforeEach(async(() => {
         TestBed
             .configureTestingModule({
-                imports: [
-                    SharedModule
-                ],
-                declarations: [
-                    DashboardComponent,
-                    HeaderComponent,
-                    MenuComponent
-                ],
-                providers: [
-                    { provide: AuthService, useValue: mockAuth },
-                    DashboardData
-                ]
+                imports: [SharedModule],
+                declarations: [DashboardComponent],
+                providers: [DashboardData]
             })
             .overrideComponent(DashboardComponent, {
                 set: {
@@ -42,13 +28,3 @@ describe('DashboardComponent', () => {
         expect(app).toBeTruthy();
     }));
 });
-
-class MockDashboardData {
-    dataChange = new BehaviorSubject<any[]>([]);
-
-    constructor() {
-        this.dataChange.next([{
-            id: 1
-        }]);
-    }
-}

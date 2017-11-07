@@ -2,20 +2,19 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 
-import setPassport from './my.passport';
-import setGraphQL from './my.graphql';
+import { setPassport } from './my.passport';
+import { setGraphQL } from './my.graphql';
 
 class App {
-    public express: express.Application;
+    express = express();
 
     constructor() {
-        this.express = express();
         this.middleware();
         setPassport(this);
         setGraphQL(this);
     }
 
-    private middleware(): void {
+    middleware() {
         this.express.use(bodyParser.urlencoded({ extended: false }));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.text({ type: 'application/graphql' }));
@@ -23,4 +22,4 @@ class App {
     }
 }
 
-export default new App().express;
+export const myApp = new App().express;

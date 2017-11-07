@@ -2,9 +2,9 @@ import * as passport from 'passport';
 import { Strategy } from 'passport-local';
 import * as session from 'express-session';
 
-import UserCtrl from './controllers/user';
+import { UserCtrl } from './controllers/user';
 
-export default function setPassport(app) {
+export function setPassport(app) {
     app.express.use(session({
         secret: 'test 123 321',
         resave: false,

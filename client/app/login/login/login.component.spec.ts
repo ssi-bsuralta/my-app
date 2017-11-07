@@ -9,12 +9,8 @@ import { mockAuth } from '../../login/services/auth.mock';
 describe('LoginComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                SharedModule
-            ],
-            declarations: [
-                LoginComponent
-            ],
+            imports: [SharedModule],
+            declarations: [LoginComponent],
             providers: [
                 { provide: AuthService, useValue: mockAuth },
                 { provide: Router, useClass: class { navigateByUrl = jasmine.createSpy('navigateByUrl'); } }
