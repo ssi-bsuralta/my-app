@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 
 import { myApp } from './app';
 
-mongoose.connect('mongodb://127.0.0.1/ssi', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/ssi', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 
