@@ -2,8 +2,8 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 
-import setPassport from './passport.active-directory';
-import setGraphQL from './graphQL';
+import setPassport from './my.passport';
+import setGraphQL from './my.graphql';
 
 class App {
     public express: express.Application;

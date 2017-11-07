@@ -7,8 +7,14 @@ export default class UserCtrl {
     login_local = (username, password, done) => {
         this.model.findOne({ username: username }, (err, user) => {
             if (err) { return done(err); }
-            if (!user) { return done(null, false); }
-            if (!user.validPassword(password)) { return done(null, false); }
+            if (!user) {
+                console.log('trying ad credentials');
+                return this.login_active_directory(username, password, done);
+            }
+            if (!user.validPassword(password)) {
+                console.log('trying ad credentials');
+                return this.login_active_directory(username, password, done);
+            }
             return done(null, user);
         });
     }
@@ -24,13 +30,12 @@ export default class UserCtrl {
         username = username.replace('.', '_');
         const ad_username = username + '@surveysampling.com';
 
-        ad.authenticate(ad_username, password, (err0, auth) => {
-
-            if (err0) { return done(err0); }
+        ad.authenticate(ad_username, password, (err1, auth) => {
+            if (err1) { return done(err1); }
             if (!auth) { return done(null, false); }
 
-            this.model.findOne({ username: username }, (err, user) => {
-                if (err) { return done(err); }
+            this.model.findOne({ username: username }, (err2, user) => {
+                if (err2) { return done(err2); }
                 if (!user) { return done(null, false); }
                 return done(null, user);
             });

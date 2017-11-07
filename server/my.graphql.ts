@@ -4,7 +4,7 @@ import {
     GraphQLObjectType
 } from 'graphql';
 
-import OrderRootClass from './graphQL/order';
+import OrderRootClass from './schema/order';
 import myGuard from './guard';
 
 const RootQuery = new GraphQLObjectType({
@@ -20,14 +20,20 @@ const schema = new GraphQLSchema({
 });
 
 export default function setGraphQL(app) {
-    app.express.use(myGuard);
+    app.express.use(
+        '/graphql',
+        myGuard,
+        graphqlHTTP({
+            schema: schema,
+            graphiql: true,
+        })
+    );
 
-    app.express.use('/graphql', graphqlHTTP({
-        schema: schema,
-        graphiql: true,
-    }));
-
-    app.express.use('/api/graphql', graphqlHTTP({
-        schema: schema
-    }));
+    app.express.use(
+        '/api/graphql',
+        myGuard,
+        graphqlHTTP({
+            schema: schema
+        })
+    );
 }

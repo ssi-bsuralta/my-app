@@ -6,10 +6,9 @@ import UserCtrl from './controllers/user';
 
 export default function setPassport(app) {
     app.express.use(session({
-        secret: 'keyboard cat 123',
+        secret: 'test 123 321',
         resave: false,
-        saveUninitialized: true,
-        cookie: { secure: false }
+        saveUninitialized: true
     }));
     app.express.use(passport.initialize());
     app.express.use(passport.session());
