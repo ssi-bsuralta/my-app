@@ -16,11 +16,11 @@ server.on('error', (error: NodeJS.ErrnoException) => {
 
     switch (error.code) {
         case 'EACCES':
-            console.log(`${port} requires elevated privileges`);
+            console.log(`Port ${port} requires elevated privileges`);
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.log(`${port} is already in use`);
+            console.log(`Port ${port} is already in use`);
             process.exit(1);
             break;
         default:
