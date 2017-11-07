@@ -1,5 +1,4 @@
 import * as http from 'http';
-import * as debug from 'debug';
 import * as mongoose from 'mongoose';
 
 import App from './app';
@@ -7,13 +6,9 @@ import App from './app';
 mongoose.connect('mongodb://127.0.0.1/ssi', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-mongoose.connection.on('connected', () => {
-    console.log('Connected to MongoDB');
-});
 
 const port = process.env.PORT || 3000;
 App.set('port', port);
-App.set('trust proxy', 1);
 
 const server = http.createServer(App);
 server.listen(port);

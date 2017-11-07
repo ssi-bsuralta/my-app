@@ -5,11 +5,6 @@ import * as session from 'express-session';
 import UserCtrl from './controllers/user';
 
 export default function setPassport(app) {
-    const userCtrl = new UserCtrl();
-    passport.use(new Strategy(userCtrl.login_active_directory));
-    passport.serializeUser((user, done) => done(null, user));
-    passport.deserializeUser((user, done) => done(null, user));
-
     app.express.use(session({
         secret: 'keyboard cat 123',
         resave: false,
@@ -18,6 +13,12 @@ export default function setPassport(app) {
     }));
     app.express.use(passport.initialize());
     app.express.use(passport.session());
+
+    passport.serializeUser((user, done) => done(null, user));
+    passport.deserializeUser((user, done) => done(null, user));
+
+    const userCtrl = new UserCtrl();
+    passport.use(new Strategy(userCtrl.login_active_directory));
 
     app.express.post(
         '/api/login',
