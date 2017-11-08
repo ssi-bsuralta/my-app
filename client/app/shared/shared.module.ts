@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {
     MatInputModule, MatButtonModule,
@@ -9,19 +9,20 @@ import {
     MatToolbarModule
 } from '@angular/material';
 
-import { ExtendedHttpService } from './extended-http.service';
+import { MyInterceptor } from './http.interceptor';
 
 @NgModule({
     exports: [
         CommonModule,
         FormsModule, ReactiveFormsModule,
-        HttpModule,
+        HttpClientModule,
         MatInputModule, MatButtonModule,
         MatTableModule, MatSortModule, MatPaginatorModule,
         MatToolbarModule
     ],
     providers: [
-        { provide: Http, useClass: ExtendedHttpService }
+        HttpClient,
+        { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true }
     ]
 })
 export class SharedModule { }

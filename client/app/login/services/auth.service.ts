@@ -18,7 +18,7 @@ export class AuthService {
     login(userAndPassword) {
         return this.userService.login(userAndPassword).subscribe(
             res => {
-                this.setUser(res.json());
+                this.setUser(res);
                 location.reload();
             }
         );
