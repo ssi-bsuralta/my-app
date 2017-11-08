@@ -18,6 +18,7 @@ export class AuthService {
     login(userAndPassword) {
         return this.userService.login(userAndPassword).subscribe(
             res => {
+                this.loggedIn = true;
                 this.setUser(res);
                 location.reload();
             }
@@ -27,6 +28,7 @@ export class AuthService {
     logout() {
         return this.userService.logout().subscribe(
             res => {
+                this.loggedIn = false;
                 localStorage.removeItem('user');
                 location.reload();
             }
