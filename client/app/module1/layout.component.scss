@@ -3,9 +3,3 @@
     display: grid;
     grid-template-rows: 1fr auto;
 }
-
-app-footer {
-    /* autoprefixer: off */
-    grid-row-start: 2;
-    grid-row-end: 3;
-}
