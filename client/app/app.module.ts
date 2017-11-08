@@ -22,11 +22,16 @@ const routes: Routes = [
         canActivate: [LogoutService]
     },
     {
-        path: 'content',
-        loadChildren: 'app/content/content.module#ContentModule',
+        path: 'module1',
+        loadChildren: 'app/module1/main.module#MainModule',
         canActivate: [AuthGuardLogin]
     },
-    { path: '', redirectTo: '/content', pathMatch: 'full' },
+    {
+        path: 'module2',
+        loadChildren: 'app/module2/main.module#MainModule',
+        canActivate: [AuthGuardLogin]
+    },
+    { path: '', redirectTo: '/module1', pathMatch: 'full' },
     { path: '**', component: NotFoundComponent }
 ];
 

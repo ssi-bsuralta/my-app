@@ -1,15 +1,16 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ContentComponent } from './content.component';
+import { LayoutComponent } from './layout.component';
 import { SharedModule } from '../shared/shared.module';
 
-import { HeaderComponent } from '../layout/header/header.component';
-import { MenuComponent } from '../layout/menu/menu.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { MenuComponent } from './layout/menu/menu.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 import { AuthService } from '../login/services/auth.service';
 import { mockAuth } from '../login/services/auth.mock';
 
-describe('ContentComponent', () => {
+describe('LayoutComponent', () => {
     beforeEach(async(() => {
         TestBed
             .configureTestingModule({
@@ -18,9 +19,10 @@ describe('ContentComponent', () => {
                     RouterTestingModule
                 ],
                 declarations: [
-                    ContentComponent,
+                    LayoutComponent,
                     HeaderComponent,
-                    MenuComponent
+                    MenuComponent,
+                    FooterComponent
                 ],
                 providers: [
                     { provide: AuthService, useValue: mockAuth }
@@ -29,7 +31,7 @@ describe('ContentComponent', () => {
             .compileComponents();
     }));
     it('should create the app', async(() => {
-        const fixture = TestBed.createComponent(ContentComponent);
+        const fixture = TestBed.createComponent(LayoutComponent);
         const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
     }));
