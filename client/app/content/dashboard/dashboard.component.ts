@@ -10,7 +10,6 @@ import { DashboardData } from './dashboard-data.service';
 import { slideInDownAnimation } from '../../shared/animations';
 
 @Component({
-    selector: 'app-content',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
     providers: [DashboardData],

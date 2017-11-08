@@ -6,9 +6,10 @@ import 'rxjs/add/observable/merge';
 
 export class DashboardTable extends DataSource<any> {
     _filter = new BehaviorSubject('');
+    filteredLength = 0;
+
     get filter(): string { return this._filter.value; }
     set filter(filter: string) { this._filter.next(filter); }
-    filteredLength = 0;
 
     constructor(private _data, private _sort, private _paginator) {
         super();
@@ -43,16 +44,12 @@ export class DashboardTable extends DataSource<any> {
             });
     }
 
-    disconnect() { }
-
     sortData(data) {
         if (!this._sort.active || this._sort.direction === '') { return data; }
 
         return data.sort((a, b) => {
-            let propertyA: number | string = '';
-            let propertyB: number | string = '';
-
-            [propertyA, propertyB] = [a[this._sort.active], b[this._sort.active]];
+            const propertyA: number | string = a[this._sort.active];
+            const propertyB: number | string = b[this._sort.active];
 
             const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
             const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
@@ -60,4 +57,6 @@ export class DashboardTable extends DataSource<any> {
             return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
         });
     }
+
+    disconnect() { }
 }

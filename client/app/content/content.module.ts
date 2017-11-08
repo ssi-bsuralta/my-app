@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { HeaderComponent } from '../layout/header/header.component';
 import { MenuComponent } from '../layout/menu/menu.component';
+import { FooterComponent } from '../layout/footer/footer.component';
 
 import { ContentComponent } from './content.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -33,7 +34,7 @@ const routes: Routes = [
     ],
     declarations: [
         ContentComponent,
-        HeaderComponent, MenuComponent,
+        HeaderComponent, MenuComponent, FooterComponent,
         DashboardComponent,
         CreateComponent
     ]

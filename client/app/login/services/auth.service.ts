@@ -5,7 +5,7 @@ import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
-    loggedIn;
+    loggedIn = false;
 
     constructor(private userService: UserService, private router: Router) {
         const user = this.getUser();
@@ -15,8 +15,8 @@ export class AuthService {
         }
     }
 
-    login(emailAndPassword) {
-        return this.userService.login(emailAndPassword).subscribe(
+    login(userAndPassword) {
+        return this.userService.login(userAndPassword).subscribe(
             res => {
                 this.setUser(res.json());
                 location.reload();
@@ -25,8 +25,12 @@ export class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('user');
-        location.reload();
+        return this.userService.logout().subscribe(
+            res => {
+                localStorage.removeItem('user');
+                location.reload();
+            }
+        );
     }
 
     setUser(user) {

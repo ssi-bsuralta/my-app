@@ -29,4 +29,12 @@ export function setPassport(app) {
             });
         }
     );
+
+    app.express.get(
+        '/api/logout',
+        (req, res) => {
+            req.session.destroy();
+            res.json({});
+        }
+    );
 }

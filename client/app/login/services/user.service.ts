@@ -9,7 +9,10 @@ export class UserService {
     constructor(private http: Http) { }
 
     login(credentials) {
-        return this.http
-            .post('/api/login', JSON.stringify(credentials), this.options);
+        return this.http.post('/api/login', JSON.stringify(credentials), this.options);
+    }
+
+    logout() {
+        return this.http.get('/api/logout', this.options);
     }
 }

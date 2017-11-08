@@ -2,27 +2,21 @@
 html,
 body {
     margin: 0;
-}
-
-html {
-    min-height: 300px;
     height: 100%;
 }
 
 body {
-    min-height: 100%;
-    font-family: "Open Sans", sans-serif, Calibri, Arial;
-    font-size: 14px;
-    display: grid;
-    grid-template-rows: 1fr auto;
+    min-height: 300px;
 }
 
-app-footer {
-    padding: 5px;
-    background-color: #7fc4cb;
-    color: #ffffff;
-    text-align: center;
-    /* autoprefixer: off */
-    grid-row-start: 2;
-    grid-row-end: 3;
+app-root {
+    height: 100%;
+    font-family: "Open Sans", sans-serif, Calibri, Arial;
+    font-size: 14px;
+    display: block;
+}
+
+app-module {
+    height: 100%;
+    display: block;
 }
