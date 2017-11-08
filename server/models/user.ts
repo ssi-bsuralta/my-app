@@ -2,9 +2,8 @@ import * as mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
     id: Number,
-    username: String,
-    password: String,
-    name: String
+    name: String,
+    role: String
 }, { collection: 'user' });
 
 userSchema.methods.validPassword = function (pwd) {

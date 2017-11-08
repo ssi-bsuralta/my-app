@@ -6,8 +6,8 @@ import {
     GraphQLList
 } from 'graphql';
 
-import { Order } from '../models/order';
-import { mycommon } from './my.common';
+import { OrderRepo } from '../models/order';
+import { getProjection } from './my.common';
 
 const OrderType = new GraphQLObjectType({
     name: 'Order',
@@ -28,7 +28,7 @@ class OrderRootClass {
             id: { type: GraphQLInt }
         },
         resolve: (parentValue, args, request, fieldASTs) => {
-            return Order.findOne(args, mycommon.getProjection(fieldASTs)).lean();
+            return OrderRepo.findOne(request, args, getProjection(fieldASTs));
         }
     };
 
@@ -38,7 +38,7 @@ class OrderRootClass {
             user_id: { type: GraphQLInt }
         },
         resolve: (parentValue, args, request, fieldASTs) => {
-            return Order.find(args, mycommon.getProjection(fieldASTs)).lean();
+            return OrderRepo.find(request, args, getProjection(fieldASTs));
         }
     };
 }
