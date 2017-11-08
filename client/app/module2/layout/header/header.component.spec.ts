@@ -1,9 +1,9 @@
 import { TestBed, async } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 
-import { AuthService } from '../../login/services/auth.service';
-import { mockAuth } from '../../login/services/auth.mock';
+import { AuthService } from '../../../login/services/auth.service';
+import { mockAuth } from '../../../login/services/auth.mock';
 
 describe('HeaderComponent', () => {
     beforeEach(async(() => {

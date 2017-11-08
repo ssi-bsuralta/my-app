@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { MenuComponent } from './menu.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 
 describe('MenuComponent', () => {
     beforeEach(async(() => {
