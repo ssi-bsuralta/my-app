@@ -1,12 +1,17 @@
 import * as mongoose from 'mongoose';
+import { autoinc, setUpdatedAt } from './schema.middleware';
 
 const userSchema = new mongoose.Schema({
     id: Number,
     name: String,
-    role: String
+    role: String,
+    username: String
 }, { collection: 'user' });
 
-userSchema.methods.validPassword = function (pwd) {
+userSchema.pre('save', autoinc);
+userSchema.pre('update', setUpdatedAt);
+
+userSchema.methods.validPassword = (pwd) => {
     return (this.password === pwd);
 };
 

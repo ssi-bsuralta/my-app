@@ -16,26 +16,49 @@ export class UserCtrl {
 
     login_active_directory = (username, password, done) => {
         console.log('trying ad credentials');
-
-        const ad = new ActiveDirectory({
-            url: 'ldap://utdc01.surveysampling.com',
-            baseDN: 'DC=SurveySampling,DC=com'
-        });
+        const self = this;
 
         username = username.toLowerCase();
         username = username.replace('@surveysampling.com', '');
         username = username.replace('.', '_');
         const ad_username = username + '@surveysampling.com';
 
+        const ad = new ActiveDirectory({
+            url: 'ldap://utdc01.surveysampling.com',
+            baseDN: 'DC=SurveySampling,DC=com',
+            username: ad_username,
+            password: password
+        });
+
         ad.authenticate(ad_username, password, (err1, auth) => {
             if (err1) { return done(err1); }
             if (!auth) { return done(null, false); }
 
-            this.model.findOne({ username: username }, (err2, user) => {
+            self.model.findOne({ username: username }, (err2, user) => {
                 if (err2) { return done(err2); }
-                if (!user) { return done(null, false); }
-                return done(null, user);
+                if (!user) {
+                    ad.isUserMemberOf(ad_username, 'TelephoneITO', (err3, isMember) => {
+                        if (isMember) {
+                            return done(null, self.create_new(username));
+                        } else {
+                            return done(null, false);
+                        }
+                    });
+                } else {
+                    return done(null, user);
+                }
             });
         });
+    }
+
+    create_new(username) {
+        const user = new User({
+            username: username,
+            name: username,
+            role: 'user'
+        });
+        user.save();
+
+        return user;
     }
 }
