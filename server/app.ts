@@ -21,7 +21,7 @@ class App {
         this.express.use(bodyParser.urlencoded({ extended: false }));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.text({ type: 'application/graphql' }));
-        // this.express.use(morgan('combined'));
+        this.express.use(morgan('combined'));
     }
 }
 
