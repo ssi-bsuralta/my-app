@@ -1,6 +1,13 @@
 {
-    "/api": {
+    "/api/*": {
         "target": "http://localhost:3000",
-        "secure": false
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/ws/*": {
+        "target": "ws://localhost:3000",
+        "secure": false,
+        "ws": true,
+        "logLevel": "debug"
     }
 }

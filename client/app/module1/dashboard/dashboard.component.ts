@@ -16,7 +16,7 @@ import { slideInDownAnimation } from '../../shared/animations';
     animations: [slideInDownAnimation]
 })
 export class DashboardComponent implements OnInit {
-    displayedColumns = ['id', 'order_number', 'study_name', 'user_id'];
+    displayedColumns = ['id', 'order_number', 'study_name', 'progress', 'user_id'];
     dataSource;
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;

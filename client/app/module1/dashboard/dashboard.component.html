@@ -10,8 +10,19 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
         <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row[column] }}</mat-cell>
+            <div [ngSwitch]="column">
+                <div *ngSwitchCase="'progress'">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Progress</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <mat-progress-bar value="80">
+                        </mat-progress-bar>
+                    </mat-cell>
+                </div>
+                <div *ngSwitchDefault>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row[column] }}</mat-cell>
+                </div>
+            </div>
         </ng-container>
     </mat-table>
 

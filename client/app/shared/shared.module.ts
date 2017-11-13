@@ -6,7 +6,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import {
     MatInputModule, MatButtonModule,
     MatTableModule, MatSortModule, MatPaginatorModule,
-    MatToolbarModule
+    MatToolbarModule, MatProgressBarModule
 } from '@angular/material';
 
 import { MyInterceptor } from './http.interceptor';
@@ -18,7 +18,7 @@ import { MyInterceptor } from './http.interceptor';
         HttpClientModule,
         MatInputModule, MatButtonModule,
         MatTableModule, MatSortModule, MatPaginatorModule,
-        MatToolbarModule
+        MatToolbarModule, MatProgressBarModule
     ],
     providers: [
         HttpClient,
