@@ -9,10 +9,12 @@ mongoose.connection.on('error', console.error.bind(console, 'connection error:')
 
 const server = http.createServer(myApp);
 const port = process.env.PORT || 3000;
+
 myApp.listen(port, () => {
     console.log(`Listening on port ${port}`);
     recursiveFunc();
 });
+
 server.on('error', (error: NodeJS.ErrnoException) => {
     if (error.syscall !== 'listen') { throw error; }
 
