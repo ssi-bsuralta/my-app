@@ -1,6 +1,6 @@
 <div id="filter">
     <mat-form-field floatPlaceholder="never">
-        <input matInput #filter placeholder="Find">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 </div>
 
@@ -14,8 +14,7 @@
                 <div *ngSwitchCase="'progress'">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Progress</mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <mat-progress-bar value="80">
-                        </mat-progress-bar>
+                        <mat-progress-bar value="{{ row[column] }}"></mat-progress-bar>
                     </mat-cell>
                 </div>
                 <div *ngSwitchDefault>
@@ -26,6 +25,6 @@
         </ng-container>
     </mat-table>
 
-    <mat-paginator #paginator [length]="dataSource.filteredLength" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+    <mat-paginator #paginator [pageIndex]="0" [pageSize]="10">
     </mat-paginator>
 </div>

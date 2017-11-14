@@ -1,41 +1,87 @@
-import { Component, ViewChild, ElementRef, OnInit, HostBinding } from '@angular/core';
-import { MatSort, MatPaginator } from '@angular/material';
+import { Component, ViewChild, OnInit, HostBinding } from '@angular/core';
+import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/switchMap';
 
-import { DashboardTable } from '../../shared/table';
-import { DashboardData } from './dashboard-data.service';
 import { slideInDownAnimation } from '../../shared/animations';
+
+import { DashboardDataService } from './dashboard.data.service';
+import { AuthService } from '../../login/services/auth.service';
 
 @Component({
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    providers: [DashboardData],
+    providers: [DashboardDataService],
     animations: [slideInDownAnimation]
 })
 export class DashboardComponent implements OnInit {
     displayedColumns = ['id', 'order_number', 'study_name', 'progress', 'user_id'];
-    dataSource;
+    dataSource = new MatTableDataSource();
+    resultsLength = 0;
+    Math = Math;
+
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild('filter') filter: ElementRef;
 
     @HostBinding('@routeAnimation') routeAnimation = true;
     @HostBinding('style.display') display = 'block';
 
-    constructor(private data: DashboardData) { }
+    constructor(private data: DashboardDataService) { }
 
     ngOnInit() {
-        this.dataSource = new DashboardTable(this.data, this.sort, this.paginator);
+        this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
 
-        Observable.fromEvent(this.filter.nativeElement, 'keyup')
-            .debounceTime(150)
-            .distinctUntilChanged()
-            .subscribe(() => {
-                if (!this.dataSource) { return; }
-                this.dataSource.filter = this.filter.nativeElement.value;
+        Observable.merge(this.sort.sortChange, this.paginator.page)
+            .startWith(null)
+            .switchMap(() => {
+                return this.data.getData();
+            })
+            .subscribe(data => {
+                this.listenData(data['data']['orders']);
             });
+    }
+
+    applyFilter(filterValue: string) {
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
+    }
+
+    listenData(data) {
+        data.forEach(element => {
+            element['progress'] = Math.floor(Math.random() * 100);
+        });
+        this.dataSource.data = data;
+
+        const self = this;
+        const connection = new WebSocket('ws://' + window.location.hostname + ':3000/ws');
+
+        connection.onopen = () => {
+            console.log('connected');
+            connection.send(JSON.stringify(data));
+        };
+
+        connection.onerror = (error) => {
+            console.log(error);
+        };
+
+        connection.onmessage = (e) => {
+            const res = JSON.parse(e.data);
+            const tmp = self.dataSource.data;
+
+            tmp.forEach((item, index) => {
+                res.forEach(element => {
+                    if (item['id'] === element['id']) {
+                        tmp[index] = element;
+                    }
+                });
+            });
+
+            self.dataSource.data = tmp;
+        };
     }
 }
