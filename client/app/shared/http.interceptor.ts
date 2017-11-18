@@ -24,6 +24,7 @@ export class MyInterceptor implements HttpInterceptor {
                 if (err instanceof HttpErrorResponse) {
                     switch (err.status) {
                         case 401:
+                        case 504:
                             this.auth.logout();
                             break;
                     }

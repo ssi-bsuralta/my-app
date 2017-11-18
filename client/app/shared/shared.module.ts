@@ -3,22 +3,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import {
-    MatInputModule, MatButtonModule,
-    MatTableModule, MatSortModule, MatPaginatorModule,
-    MatToolbarModule, MatProgressBarModule
-} from '@angular/material';
-
+import { MaterialModule } from './material.module';
+import { LayoutModule } from './layout.module';
 import { MyInterceptor } from './http.interceptor';
+import { HeaderComponent } from './layout/header/header.component';
+import { MenuComponent } from './layout/menu/menu.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
     exports: [
         CommonModule,
-        FormsModule, ReactiveFormsModule,
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
-        MatInputModule, MatButtonModule,
-        MatTableModule, MatSortModule, MatPaginatorModule,
-        MatToolbarModule, MatProgressBarModule
+        MaterialModule,
+        LayoutModule,
     ],
     providers: [
         HttpClient,

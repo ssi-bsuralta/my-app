@@ -39,7 +39,7 @@ const routes: Routes = [
     imports: [
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes, { enableTracing: true })
     ],
     declarations: [
         AppComponent,
