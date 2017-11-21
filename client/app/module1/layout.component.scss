@@ -1,13 +1,41 @@
 #main_wrapper {
     min-height: 100%;
     display: grid;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: 64px auto 25px;
+    grid-template-columns: minmax(230px, 2fr) 10fr;
+    grid-template-areas: "header header"
+                         "menu content"
+                         "menu footer"
 }
 
 app-header {
-    display: block;
+    grid-area: header;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
 }
 
 app-menu {
-    display: block;
+    grid-area: menu;
+}
+
+app-footer {
+    grid-area: footer;
+}
+
+#content {
+    grid-area: content;
+}
+
+app-header,
+app-footer {
+    background-color: gray;
+}
+
+app-menu {
+    background-color: pink;
+}
+
+#content {
+    background-color: #DDDDDD;
 }

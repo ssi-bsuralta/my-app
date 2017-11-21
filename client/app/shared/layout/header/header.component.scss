@@ -5,3 +5,10 @@
 span {
     padding: 0 5px;
 }
+
+.logo a {
+    background: url(/assets/images/logo.png) no-repeat;
+    display: block;
+    line-height: 61px;
+    padding-left: 61px;
+}
