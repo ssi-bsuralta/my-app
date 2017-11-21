@@ -1,37 +1,38 @@
 import * as http from 'http';
-import * as mongoose from 'mongoose';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as morgan from 'morgan';
 
-import { myApp } from './app';
+import { setMongoose } from './my.mongoose';
+import { setPassport } from './my.passport';
+import { setGraphQL } from './my.graphql';
+import { setWebSocket } from './my.websocket';
 
-mongoose.connect('mongodb://localhost/ssi', { useMongoClient: true });
-mongoose.Promise = global.Promise;
-mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+const myExpress = express();
 
-const server = http.createServer(myApp);
+myExpress.use(bodyParser.urlencoded({ extended: false }));
+myExpress.use(bodyParser.json());
+myExpress.use(bodyParser.text({ type: 'application/graphql' }));
+myExpress.use(morgan('combined'));
+
+setMongoose(myExpress);
+setPassport(myExpress);
+setGraphQL(myExpress);
+const myClients = setWebSocket(myExpress);
+
 const port = process.env.PORT || 3000;
 
-myApp.listen(port, () => {
+myExpress.listen(port, () => {
     console.log(`Listening on port ${port}`);
     recursiveFunc();
 });
 
-server.on('error', (error: NodeJS.ErrnoException) => {
-    if (error.syscall !== 'listen') { throw error; }
-
-    switch (error.code) {
-        case 'EACCES':
-            console.log(`Port ${port} requires elevated privileges`);
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            console.log(`Port ${port} is already in use`);
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
-});
-
 function recursiveFunc() {
+    if (myClients[38]) {
+        const element = myClients[38].element;
+        const ws = myClients[38].ws;
+        element['progress'] = Math.round(Math.random() * 100);
+        ws.send(JSON.stringify([element]));
+    }
     setTimeout(recursiveFunc, 3000);
 }

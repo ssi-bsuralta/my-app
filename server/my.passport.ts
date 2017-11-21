@@ -4,14 +4,14 @@ import * as session from 'express-session';
 
 import { UserCtrl } from './controllers/user';
 
-export function setPassport(app) {
-    app.express.use(session({
+export function setPassport(myExpress) {
+    myExpress.use(session({
         secret: 'test 123 321',
         resave: false,
         saveUninitialized: true
     }));
-    app.express.use(passport.initialize());
-    app.express.use(passport.session());
+    myExpress.use(passport.initialize());
+    myExpress.use(passport.session());
 
     passport.serializeUser((user, done) => done(null, user));
     passport.deserializeUser((user, done) => done(null, user));
@@ -19,7 +19,7 @@ export function setPassport(app) {
     const userCtrl = new UserCtrl();
     passport.use(new Strategy(userCtrl.login_local));
 
-    app.express.post(
+    myExpress.post(
         '/api/login',
         passport.authenticate('local'),
         (req, res) => {
@@ -30,7 +30,7 @@ export function setPassport(app) {
         }
     );
 
-    app.express.get(
+    myExpress.get(
         '/api/logout',
         (req, res) => {
             req.session.destroy();

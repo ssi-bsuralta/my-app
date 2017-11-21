@@ -16,8 +16,8 @@ const schema = new GraphQLSchema({
     query: RootQuery
 });
 
-export function setGraphQL(app) {
-    app.express.use(
+export function setGraphQL(myExpress) {
+    myExpress.use(
         '/graphql',
         myguard,
         graphqlHTTP({
@@ -26,7 +26,7 @@ export function setGraphQL(app) {
         })
     );
 
-    app.express.use(
+    myExpress.use(
         '/api/graphql',
         myguard,
         graphqlHTTP({
