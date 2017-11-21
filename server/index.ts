@@ -18,7 +18,7 @@ myExpress.use(morgan('combined'));
 setMongoose(myExpress);
 setPassport(myExpress);
 setGraphQL(myExpress);
-const myClients = setWebSocket(myExpress);
+const [myClients, myElements] = setWebSocket(myExpress);
 
 const port = process.env.PORT || 3000;
 
@@ -33,14 +33,18 @@ function recursiveFunc() {
 }
 
 function updateElement(id) {
-    if (myClients[id]) {
-        if (myClients[id].ws.readyState === 1) {
-            const element = myClients[id].element;
-            const ws = myClients[id].ws;
-            element['progress'] = Math.round(Math.random() * 100);
-            ws.send(JSON.stringify([element]));
-        } else {
-            delete myClients[id];
+    if (myElements[id]) {
+        const element = myElements[id]['element'];
+        const mapper = myElements[id]['mapper'];
+        const ws = myClients[mapper];
+
+        if (ws) {
+            if (ws.readyState === 1) {
+                element['progress'] = Math.round(Math.random() * 100);
+                ws.send(JSON.stringify([element]));
+            } else {
+                delete myClients[mapper];
+            }
         }
     }
 }
