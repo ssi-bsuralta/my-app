@@ -28,11 +28,19 @@ myExpress.listen(port, () => {
 });
 
 function recursiveFunc() {
-    if (myClients[38]) {
-        const element = myClients[38].element;
-        const ws = myClients[38].ws;
-        element['progress'] = Math.round(Math.random() * 100);
-        ws.send(JSON.stringify([element]));
+    [2, 19, 29, 38].forEach(id => updateElement(id));
+    setTimeout(recursiveFunc, 2000);
+}
+
+function updateElement(id) {
+    if (myClients[id]) {
+        if (myClients[id].ws.readyState === 1) {
+            const element = myClients[id].element;
+            const ws = myClients[id].ws;
+            element['progress'] = Math.round(Math.random() * 100);
+            ws.send(JSON.stringify([element]));
+        } else {
+            delete myClients[id];
+        }
     }
-    setTimeout(recursiveFunc, 3000);
 }
